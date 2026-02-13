@@ -1,0 +1,261 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Reservation - Kaela's Resort Admin</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .form-card h2 {
+            color: var(--dark-brown);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 5px rgba(196, 125, 92, 0.3);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            margin-bottom: 0;
+        }
+
+        .read-only {
+            background: #f9f9f9;
+            padding: 0.75rem;
+            border-radius: 4px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.85rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            min-width: 150px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #E8751A 0%, #FF9A3D 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(232, 117, 26, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #FF7620 0%, #FF9A3D 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(232, 117, 26, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: var(--dark-brown);
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>✏️ Edit Reservation</h1>
+        <div>
+            <span style="margin-right: 1rem;">{{ request.user.username }}</span>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <a href="{% url 'reservation_detail' reservation.id %}" class="back-link">← Back to Reservation</a>
+
+        <div class="form-card">
+            <h2>Edit Reservation #{{ reservation.id }}</h2>
+            <form method="post">
+                {% csrf_token %}
+
+                <h3 style="color: var(--dark-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Guest Information (Read-only)</h3>
+
+                <div class="form-group">
+                    <label>Guest Name</label>
+                    <div class="read-only">{{ reservation.guest.name }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <div class="read-only">{{ reservation.guest.email }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <div class="read-only">{{ reservation.guest.phone }}</div>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--dark-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Reservation Details</h3>
+
+                <div class="form-group">
+                    <label>Room (Read-only)</label>
+                    <div class="read-only">{{ reservation.room.room_number }} - {{ reservation.room.room_type.name }}</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="check_in">Check-in Date</label>
+                        <input type="date" id="check_in" name="check_in" value="{{ reservation.check_in_date|date:'Y-m-d' }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="check_out">Check-out Date</label>
+                        <input type="date" id="check_out" name="check_out" value="{{ reservation.check_out_date|date:'Y-m-d' }}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="num_guests">Number of Guests</label>
+                        <input type="number" id="num_guests" name="number_of_guests" min="1" value="{{ reservation.number_of_guests }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status" required>
+                            <option value="pending" {% if reservation.status == 'pending' %}selected{% endif %}>Pending</option>
+                            <option value="confirmed" {% if reservation.status == 'confirmed' %}selected{% endif %}>Confirmed</option>
+                            <option value="checked_in" {% if reservation.status == 'checked_in' %}selected{% endif %}>Checked In</option>
+                            <option value="checked_out" {% if reservation.status == 'checked_out' %}selected{% endif %}>Checked Out</option>
+                            <option value="cancelled" {% if reservation.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--dark-brown); margin-top: 1.5rem; margin-bottom: 1rem;">Price Information (Read-only)</h3>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Room Price (per night)</label>
+                        <div class="read-only">₱{{ reservation.room.room_type.base_price }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Nights</label>
+                        <div class="read-only">{{ reservation.total_nights }}</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Final Price</label>
+                        <div class="read-only"><strong>₱{{ reservation.final_price }}</strong></div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="{% url 'reservation_detail' reservation.id %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

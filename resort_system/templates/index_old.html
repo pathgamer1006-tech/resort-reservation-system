@@ -1,0 +1,310 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOSSOM. - Stay With Comfort</title>
+    <link rel="stylesheet" href="{% static 'blossom.css' %}">
+</head>
+<body>
+    <!-- ==========================================
+         Navigation & Header
+         ========================================== -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">📦</div>
+                BLOSSOM.
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">EXPLORE</a></li>
+                    <li><a href="{% url 'rooms' %}">ROOMS</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'amenities' %}">ACTIVITIES</a></li>
+                </ul>
+            </nav>
+            <a href="#booking" class="book-now-btn">BOOK NOW →</a>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         Hero Section
+         ========================================== -->
+    <section class="hero" id="home">
+        <h1>STAY WITH COMFORT</h1>
+        <a href="#booking" class="hero-cta">FIND ROOMS FOR A STAY 🏨</a>
+    </section>
+
+    <!-- ==========================================
+         Feature Cards Grid (BLOSSOM Style)
+         ========================================== -->
+    <div class="features-grid">
+        <!-- Green Card - Destination -->
+        <div class="feature-card green">
+            <div>
+                <h2>ESTINATION.<br>LUXURY.<br>RESPITE.</h2>
+                <svg class="wavy-pattern" viewBox="0 0 200 60">
+                    <path d="M0,30 Q25,10 50,30 T100,30 T150,30 T200,30 L200,60 L0,60 Z" fill="rgba(0,0,0,0.1)"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Pink Card - Events -->
+        <div class="feature-card pink">
+            <div>
+                <div class="feature-icon">♥</div>
+                <h3>IT'S YOUR OWN. PLAN<br>BIG SHOW</h3>
+                <p>We love to orchestrating your wedding events</p>
+            </div>
+        </div>
+
+        <!-- Beige Card - Spa & Gym -->
+        <div class="feature-card beige">
+            <div>
+                <div class="feature-icon">🍃</div>
+                <h3>TRY OUR EXHILARATING<br>SPA & GYM</h3>
+                <p>Experience world greatest relaxation on earth!</p>
+            </div>
+        </div>
+
+        <!-- Yellow Card - Travel Guide -->
+        <div class="feature-card yellow">
+            <div>
+                <h2>2K23 FALL<br>TRAVEL GUIDE</h2>
+                <p>The autumn foliage in full display, it's the perfect time to hit the road.</p>
+            </div>
+            <a href="{% url 'about' %}" class="feature-cta">VIEW ONLINE GUIDE →</a>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         Booking Form
+         ========================================== -->
+    <div class="booking-form" id="booking">
+        <h3 style="text-align: center; margin-bottom: 1.5rem;">Quick Booking</h3>
+        <form method="post" action="{% url 'book_reservation' %}">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="guest_name">Your Name</label>
+                    <input type="text" id="guest_name" name="guest_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="guest_email">Email</label>
+                    <input type="email" id="guest_email" name="guest_email" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="guest_phone">Phone</label>
+                    <input type="tel" id="guest_phone" name="guest_phone" placeholder="+63-9XX-XXX-XXXX or 0-9XX-XXX-XXXX">
+                </div>
+                <div class="form-group">
+                    <label for="num_guests">Number of Guests</label>
+                    <select id="num_guests" name="num_guests" required>
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                        <option value="5">5+ Guests</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="check_in">Check-in Date</label>
+                    <input type="date" id="check_in" name="check_in" required>
+                </div>
+                <div class="form-group">
+                    <label for="check_out">Check-out Date</label>
+                    <input type="date" id="check_out" name="check_out" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="room_type">Room Type</label>
+                    <select id="room_type" name="room_type" required>
+                        <option value="">-- Select Room Type --</option>
+                        {% for room_type in room_types %}
+                        <option value="{{ room_type.id }}">{{ room_type.name }} - ₱{{ room_type.base_price }}/night</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                Book Now
+            </button>
+        </form>
+    </div>
+
+    <!-- ==========================================
+         Main Content
+         ========================================== -->
+    <div class="container">
+        <!-- ==========================================
+             Features Section
+             ========================================== -->
+        <section class="section features-section">
+            <div class="section-title">
+                <h2>Why Choose Kaela's Resort?</h2>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🌟</div>
+                    <h3>World-Class Amenities</h3>
+                    <p>Enjoy premium facilities including swimming pool, spa, gym, and fine dining restaurant.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <h3>Expert Staff</h3>
+                    <p>Our dedicated team ensures your comfort and satisfaction throughout your stay.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📍</div>
+                    <h3>Prime Location</h3>
+                    <p>Located on beautiful white sand beaches with stunning ocean views.</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h3>Best Value</h3>
+                    <p>Competitive pricing with flexible booking options and special packages available.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             Rooms CTA Section
+             ========================================== -->
+        <section style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); padding: 3rem 2rem; border-radius: 8px; text-align: center; margin: 2rem 0;">
+            <h3 style="color: white; font-size: 1.8rem; margin-top: 0;">Explore Our Luxurious Rooms</h3>
+            <p style="color: rgba(255,255,255,0.95); font-size: 1.1rem; margin: 1rem 0;">Browse our collection of rooms, from standard to presidential suites</p>
+            <a href="{% url 'rooms' %}" class="btn btn-primary" style="background: white; color: var(--primary-brown); padding: 0.8rem 2rem; border-radius: 4px; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 1rem; font-size: 1rem;">
+                View All Rooms →
+            </a>
+        </section>
+
+        <!-- ==========================================
+             Amenities CTA Section
+             ========================================== -->
+        <section style="background: var(--primary-brown); color: white; padding: 3rem 2rem; border-radius: 8px; text-align: center; margin: 2rem 0;">
+            <h3 style="margin-top: 0; font-size: 1.8rem;">Discover Our World-Class Amenities</h3>
+            <p style="color: rgba(255,255,255,0.95); font-size: 1.1rem; margin: 1rem 0;">Experience luxury facilities including pools, spa, fitness center, and fine dining</p>
+            <a href="{% url 'amenities' %}" class="btn btn-primary" style="background: var(--primary-orange); color: white; padding: 0.8rem 2rem; border-radius: 4px; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 1rem; font-size: 1rem;">
+                Explore Amenities →
+            </a>
+        </section>
+
+        <!-- ==========================================
+             Testimonials Section
+             ========================================== -->
+        <section class="section testimonials" id="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2 style="color: var(--text-light);">Guest Testimonials</h2>
+                </div>
+
+                <div class="cards-grid">
+                    <div class="testimonial-card">
+                        <p>"Paradise Resort exceeded all my expectations. The staff was incredibly friendly and the rooms were immaculate. Definitely coming back!"</p>
+                        <div class="testimonial-author">- Sarah Johnson, USA</div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p>"Best vacation ever! The beach is pristine, the amenities are world-class, and the price is unbeatable. Highly recommended!"</p>
+                        <div class="testimonial-author">- Michael Chen, Canada</div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p>"Wonderful stay! The team took care of every detail. The spa services were fantastic and the food at the restaurant was delicious."</p>
+                        <div class="testimonial-author">- Emma Rodriguez, Spain</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             Contact CTA Section
+             ========================================== -->
+        <section style="background: linear-gradient(135deg, var(--primary-orange) 0%, var(--primary-brown) 100%); padding: 3rem 2rem; border-radius: 8px; text-align: center; margin: 2rem 0;">
+            <h3 style="color: white; font-size: 1.8rem; margin-top: 0;">Have Questions?</h3>
+            <p style="color: rgba(255,255,255,0.95); font-size: 1.1rem; margin: 1rem 0;">Reach out to our friendly team for any inquiries or reservations</p>
+            <a href="{% url 'contact' %}" class="btn btn-primary" style="background: white; color: var(--primary-brown); padding: 0.8rem 2rem; border-radius: 4px; text-decoration: none; font-weight: 600; display: inline-block; margin-top: 1rem; font-size: 1rem;">
+                Contact Us →
+            </a>
+        </section>
+    </div>
+
+    <!-- ==========================================
+         Footer
+         ========================================== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Kaela's Resort</h4>
+                <p>Your destination for luxury and comfort.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#rooms">Rooms</a></li>
+                    <li><a href="#amenities">Amenities</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li>Phone: +1 (305) 555-0100</li>
+                    <li>Email: info@kaelasresort.com</li>
+                    <li>Address: 123 Beach Road, Miami</li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Kaela's Resort. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple booking form handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your interest! Please visit our admin portal to complete your booking.\n\nAdmin Portal: http://localhost:8000/admin/');
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

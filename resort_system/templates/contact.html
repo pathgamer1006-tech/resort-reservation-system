@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - KAELA Events Place and Private Resort</title>
+    <link rel="stylesheet" href="{% static 'blossom.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'packages' %}">PACKAGES</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'amenities' %}">AMENITIES</a></li>
+                    <li><a href="{% url 'contact' %}">CONTACT</a></li>
+                </ul>
+            </nav>
+            <a href="{% url 'index' %}#booking" class="book-now-btn">BOOK NOW</a>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section style="background: var(--kaela-brown); padding: 3rem 2rem; text-align: center;">
+        <h1 style="color: white; font-size: 2.5rem; margin-bottom: 0.5rem;">Contact Us</h1>
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Get in touch with our friendly team</p>
+    </section>
+
+    <!-- Contact Content -->
+    <section class="section" style="padding: 3rem 2rem;">
+        <div class="container">
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+                    <!-- Contact Info -->
+                    <div>
+                        <h2 style="color: var(--dark-brown); margin-top: 0;">Get In Touch</h2>
+                        <p style="color: #666; line-height: 1.8;">
+                            Have questions about our rooms, amenities, or special packages? Our friendly team is here to help! Don't hesitate to reach out—we're always happy to assist you.
+                        </p>
+
+                        <div style="margin-top: 2rem;">
+                            <h3 style="color: var(--dark-brown); margin-bottom: 1rem;">Contact Information</h3>
+
+                            <div style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border-left: 4px solid var(--primary-orange);">
+                                <div style="font-weight: 600; color: var(--dark-brown);">📞 Phone</div>
+                                <p style="color: #666; margin: 0.5rem 0 0 0;">0917 858 0963</p>
+                                <p style="color: #999; font-size: 0.9rem; margin: 0;">Available 24/7</p>
+                            </div>
+
+                            <div style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border-left: 4px solid var(--primary-brown);">
+                                <div style="font-weight: 600; color: var(--dark-brown);">✉️ Email</div>
+                                <p style="color: #666; margin: 0.5rem 0 0 0;">kaelaresor.ph@gmail.com</p>
+                                <p style="color: #999; font-size: 0.9rem; margin: 0;">Response within 2 hours</p>
+                            </div>
+
+                            <div style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border-left: 4px solid var(--accent-gold);">
+                                <div style="font-weight: 600; color: var(--dark-brown);">📍 Address</div>
+                                <p style="color: #666; margin: 0.5rem 0 0 0;">0214 A. Mabini St, Purok 3, Mojon, Maloles, Philippines 3000</p>
+                                <p style="color: #999; font-size: 0.9rem; margin: 0;">Maloles, Cavite</p>
+                            </div>
+
+                            <div style="background: white; padding: 1rem; border-radius: 6px; border-left: 4px solid #2196F3;">
+                                <div style="font-weight: 600; color: var(--dark-brown);">🕐 Hours</div>
+                                <p style="color: #666; margin: 0.5rem 0 0 0;">7:00 AM - 11:00 PM Daily</p>
+                                <p style="color: #999; font-size: 0.9rem; margin: 0;">Emergency line always available</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div>
+                        <h2 style="color: var(--dark-brown); margin-top: 0;">Send us a Message</h2>
+                        <form style="background: #f9f9f9; padding: 2rem; border-radius: 8px;">
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; font-weight: 600; color: var(--dark-brown); margin-bottom: 0.5rem;">Your Name *</label>
+                                <input type="text" placeholder="John Doe" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; font-family: inherit;">
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; font-weight: 600; color: var(--dark-brown); margin-bottom: 0.5rem;">Email Address *</label>
+                                <input type="email" placeholder="john@example.com" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; font-family: inherit;">
+                            </div>
+
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; font-weight: 600; color: var(--dark-brown); margin-bottom: 0.5rem;">Phone Number</label>
+                                <input type="tel" placeholder="+63-9XX-XXX-XXXX or 0-9XX-XXX-XXXX" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; font-family: inherit;">
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; font-weight: 600; color: var(--dark-brown); margin-bottom: 0.5rem;">Message *</label>
+                                <textarea placeholder="Tell us your inquiry..." required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; font-family: inherit; resize: vertical; min-height: 120px;"></textarea>
+                            </div>
+
+                            <button type="submit" style="width: 100%; padding: 0.75rem; background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); color: white; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; transition: transform 0.2s;">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div style="background: white; padding: 2rem; border-radius: 8px; text-align: center; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h3 style="color: var(--dark-brown); margin-top: 0;">Follow Us On Social Media</h3>
+                    <div style="display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem;">
+                        <a href="#" style="display: inline-block; width: 50px; height: 50px; background: #3b5998; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.5rem;">f</a>
+                        <a href="#" style="display: inline-block; width: 50px; height: 50px; background: #E1306C; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.5rem;">📷</a>
+                        <a href="#" style="display: inline-block; width: 50px; height: 50px; background: #1DA1F2; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.5rem;">𝕏</a>
+                        <a href="#" style="display: inline-block; width: 50px; height: 50px; background: #0077B5; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.5rem;">in</a>
+                    </div>
+                </div>
+
+                <!-- FAQ -->
+                <div style="background: #f9f9f9; padding: 2rem; border-radius: 8px;">
+                    <h3 style="color: var(--dark-brown); margin-top: 0;">Frequently Asked Questions</h3>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <details style="cursor: pointer;">
+                            <summary style="font-weight: 600; color: var(--dark-brown); padding: 1rem; background: white; border-radius: 4px; margin-bottom: 0.5rem;">
+                                ❓ What are your check-in and check-out times?
+                            </summary>
+                            <p style="color: #666; padding: 1rem; margin: 0;">
+                                Standard check-in is at 3:00 PM and check-out is at 11:00 AM. Early check-in and late check-out can be arranged upon request, subject to availability.
+                            </p>
+                        </details>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <details style="cursor: pointer;">
+                            <summary style="font-weight: 600; color: var(--dark-brown); padding: 1rem; background: white; border-radius: 4px; margin-bottom: 0.5rem;">
+                                ❓ Do you offer cancellation policies?
+                            </summary>
+                            <p style="color: #666; padding: 1rem; margin: 0;">
+                                Yes! We offer free cancellation up to 24 hours before check-in. Cancellations made less than 24 hours before arrival may incur a one-night charge.
+                            </p>
+                        </details>
+                    </div>
+
+                    <div style="margin-bottom: 1rem;">
+                        <details style="cursor: pointer;">
+                            <summary style="font-weight: 600; color: var(--dark-brown); padding: 1rem; background: white; border-radius: 4px; margin-bottom: 0.5rem;">
+                                ❓ Are there special packages available?
+                            </summary>
+                            <p style="color: #666; padding: 1rem; margin: 0;">
+                                Absolutely! We offer honeymoon packages, family packages, and group discounts. Contact our team for more information.
+                            </p>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); padding: 2rem; text-align: center; margin-top: 2rem;">
+        <h2 style="color: white; margin: 0 0 1rem 0;">Ready to Book Your Stay?</h2>
+        <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem;">Start planning your perfect vacation today!</p>
+        <a href="{% url 'index' %}" class="btn btn-primary" style="background: white; color: var(--primary-brown); padding: 0.75rem 2rem; border-radius: 4px; text-decoration: none; font-weight: 600; display: inline-block;">
+            Book Now
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--dark-brown); color: white; padding: 2rem; text-align: center; margin-top: 2rem;">
+        <p>&copy; 2025 Kaela Private Resort Maloles. All rights reserved.</p>
+        <p style="margin: 0.5rem 0;">📞 0917 858 0963 | 📧 kaelaresor.ph@gmail.com</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><a href="{% url 'index' %}" style="color: var(--accent-gold); text-decoration: none;">← Back to Home</a></p>
+    </footer>
+</body>
+</html>

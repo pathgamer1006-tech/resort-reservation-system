@@ -1,0 +1,251 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Login - KAELA Resort</title>
+    <link rel="stylesheet" href="{% static 'blossom.css' %}">
+    <style>
+        body {
+            background: linear-gradient(135deg, var(--kaela-brown) 0%, var(--kaela-terracotta) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+        }
+
+        .auth-card {
+            background: var(--text-white);
+            border-radius: 12px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .auth-header {
+            background: var(--kaela-brown);
+            color: var(--text-white);
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .auth-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .auth-header .logo-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-body {
+            padding: 2.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: var(--kaela-brown);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--kaela-brown);
+            box-shadow: 0 0 0 4px rgba(168, 92, 60, 0.1);
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #dc3545;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--kaela-brown);
+            color: var(--text-white);
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .login-btn:hover {
+            background: var(--kaela-dark-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(168, 92, 60, 0.3);
+        }
+
+        .auth-footer {
+            padding: 0 2.5rem 2.5rem 2.5rem;
+            text-align: center;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .auth-footer p {
+            color: var(--text-dark);
+            margin: 0 0 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .auth-footer a {
+            color: var(--kaela-brown);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .auth-footer a:hover {
+            color: var(--kaela-terracotta);
+            text-decoration: underline;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .button-group a {
+            display: inline-block;
+            padding: 0.8rem;
+            text-align: center;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .button-group a.btn-primary {
+            background: var(--kaela-gold);
+            color: var(--text-white);
+        }
+
+        .button-group a.btn-primary:hover {
+            background: #c4944a;
+            transform: translateY(-2px);
+        }
+
+        .button-group a.btn-secondary {
+            background: #e0e0e0;
+            color: var(--text-dark);
+        }
+
+        .button-group a.btn-secondary:hover {
+            background: #d0d0d0;
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e0e0e0;
+        }
+
+        .divider span {
+            background: var(--text-white);
+            padding: 0 1rem;
+            position: relative;
+            color: #999;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="{% static 'KALEA LOGO.png' %}" alt="KAELA Logo" class="logo-img">
+                <h1>Guest Login</h1>
+            </div>
+
+            <div class="auth-body">
+                {% if error %}
+                    <div class="error-message">{{ error }}</div>
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required placeholder="Enter your username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Enter your password">
+                    </div>
+
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+
+                <div class="divider">
+                    <span>OR</span>
+                </div>
+
+                <div class="button-group">
+                    <a href="{% url 'user_signup' %}" class="btn-primary">Create Account</a>
+                    <a href="{% url 'index' %}" class="btn-secondary">Back to Home</a>
+                </div>
+            </div>
+
+            <div class="auth-footer">
+                <p>Don't have an account?</p>
+                <a href="{% url 'user_signup' %}">Create one here</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

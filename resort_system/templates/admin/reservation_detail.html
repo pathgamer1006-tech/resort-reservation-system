@@ -1,0 +1,419 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Details - Kaela's Resort Admin</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-header a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .nav-menu {
+            background: white;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-menu a {
+            padding: 0.5rem 1rem;
+            color: var(--dark-brown);
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            border-bottom-color: var(--primary-orange);
+        }
+
+        .admin-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: var(--primary-orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .detail-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-card h2 {
+            color: var(--dark-brown);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .detail-item label {
+            display: block;
+            font-weight: 600;
+            color: var(--dark-brown);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .detail-item .value {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.6rem 1rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-checked_in {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-checked_out {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .price-section {
+            background: #fff9f0;
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 2px solid var(--primary-orange);
+            margin-bottom: 1.5rem;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .price-row:last-child {
+            border-bottom: none;
+        }
+
+        .price-label {
+            font-weight: 600;
+        }
+
+        .price-value {
+            color: var(--primary-brown);
+            font-weight: 600;
+        }
+
+        .price-row.total {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 2px solid var(--primary-orange);
+        }
+
+        .status-form {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-form h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-brown);
+        }
+
+        .form-group {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+
+        .form-group select {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .form-group button {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .form-group button:hover {
+            background: var(--primary-brown);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-brown);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: var(--dark-brown);
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 1rem;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>📋 Reservation Details</h1>
+        <div>
+            <span style="margin-right: 1rem;">{{ request.user.username }}</span>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    <div class="nav-menu">
+        <a href="{% url 'admin_dashboard' %}">📊 Dashboard</a>
+        <a href="{% url 'sales_list' %}">💰 Sales</a>
+        <a href="{% url 'create_reservation' %}">➕ New Reservation</a>
+        <a href="{% url 'index' %}">🏠 Website</a>
+    </div>
+
+    <div class="admin-container">
+        <a href="{% url 'sales_list' %}" class="back-link">← Back to Sales</a>
+
+        <div class="detail-card">
+            <h2>Reservation #{{ reservation.id }}</h2>
+            
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <label>Guest Name</label>
+                    <div class="value">{{ reservation.guest.first_name }} {{ reservation.guest.last_name }}</div>
+                </div>
+
+                <div class="detail-item">
+                    <label>Guest Email</label>
+                    <div class="value">{{ reservation.guest.email }}</div>
+                </div>
+
+                <div class="detail-item">
+                    <label>Guest Phone</label>
+                    <div class="value">{{ reservation.guest.phone }}</div>
+                </div>
+
+                <div class="detail-item">
+                    <label>Room</label>
+                    <div class="value">{{ reservation.room.room_number }} - {{ reservation.room.room_type.name }}</div>
+                </div>
+
+                <div class="detail-item">
+                    <label>Check-in Date</label>
+                    <div class="value">{{ reservation.check_in_date|date:"M d, Y" }}</div>
+                </div>
+
+                <div class="detail-item">
+                    <label>Check-out Date</label>
+                    <div class="value">{{ reservation.check_out_date|date:"M d, Y" }}</div>
+                </div>
+
+                <div class="detail-item">
+                    <label>Number of Guests</label>
+                    <div class="value">{{ reservation.number_of_guests }}</div>
+                </div>
+
+                <div class="detail-item">
+                    <label>Total Nights</label>
+                    <div class="value">{{ reservation.total_nights }}</div>
+                </div>
+
+                <div class="detail-item">
+                    <label>Status</label>
+                    <div class="value">
+                        <span class="status-badge status-{{ reservation.status }}">
+                            {{ reservation.get_status_display }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="detail-item">
+                    <label>Created At</label>
+                    <div class="value">{{ reservation.created_at|date:"M d, Y g:i A" }}</div>
+                </div>
+            </div>
+
+            <div class="price-section">
+                <div class="price-row">
+                    <span class="price-label">Room Price (per night)</span>
+                    <span class="price-value">₱{{ reservation.room.room_type.base_price }}</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Number of Nights</span>
+                    <span class="price-value">{{ reservation.total_nights }}</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Subtotal</span>
+                    <span class="price-value">₱{{ reservation.total_price }}</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Discount / Tax</span>
+                    <span class="price-value">₱{{ reservation.discount_amount }}</span>
+                </div>
+                <div class="price-row total">
+                    <span class="price-label">Final Price</span>
+                    <span class="price-value">₱{{ reservation.final_price }}</span>
+                </div>
+            </div>
+
+            <div class="status-form">
+                <h3>Update Status</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <select name="status" required>
+                            <option value="pending" {% if reservation.status == 'pending' %}selected{% endif %}>Pending</option>
+                            <option value="confirmed" {% if reservation.status == 'confirmed' %}selected{% endif %}>Confirmed</option>
+                            <option value="checked_in" {% if reservation.status == 'checked_in' %}selected{% endif %}>Checked In</option>
+                            <option value="checked_out" {% if reservation.status == 'checked_out' %}selected{% endif %}>Checked Out</option>
+                            <option value="cancelled" {% if reservation.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                        </select>
+                        <button type="submit">Update Status</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="action-buttons">
+                <a href="{% url 'edit_reservation' reservation.id %}" class="btn btn-primary">Edit Reservation</a>
+                <a href="{% url 'delete_reservation' reservation.id %}" class="btn btn-danger">Delete Reservation</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

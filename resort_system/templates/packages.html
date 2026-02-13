@@ -1,0 +1,519 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packages - KAELA Resort</title>
+    <link rel="stylesheet" href="{% static 'blossom.css' %}">
+    <style>
+        .packages-hero {
+            background: linear-gradient(135deg, var(--kaela-brown) 0%, var(--kaela-terracotta) 100%);
+            color: var(--text-white);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .packages-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .packages-hero p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .packages-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .package-category {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            color: var(--kaela-brown);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--kaela-cream);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .package-card {
+            background: var(--text-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--kaela-terracotta);
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+        }
+
+        .package-header {
+            background: var(--kaela-brown);
+            color: var(--text-white);
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .package-header h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+        }
+
+        .package-badge {
+            display: inline-block;
+            background: var(--kaela-gold);
+            color: var(--text-white);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .package-price {
+            background: var(--kaela-cream);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .price-amount {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--kaela-brown);
+            margin: 0;
+        }
+
+        .price-label {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .package-details {
+            padding: 1.5rem;
+        }
+
+        .package-details ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .package-details li {
+            padding: 0.6rem 0;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .package-details li:last-child {
+            border-bottom: none;
+        }
+
+        .package-details li::before {
+            content: "✓";
+            color: var(--kaela-gold);
+            font-weight: bold;
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+        }
+
+        .package-footer {
+            padding: 1.5rem;
+            background: var(--kaela-beige);
+            text-align: center;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .package-footer a {
+            background: var(--kaela-brown);
+            color: var(--text-white);
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .package-footer a:hover {
+            background: var(--kaela-dark-brown);
+            transform: translateY(-2px);
+        }
+
+        .highlight-section {
+            background: linear-gradient(135deg, rgba(168, 92, 60, 0.05) 0%, rgba(196, 125, 92, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .highlight-section h4 {
+            color: var(--kaela-brown);
+            margin-top: 0;
+            font-size: 1.1rem;
+        }
+
+        .highlight-section p {
+            margin: 0.5rem 0;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 768px) {
+            .packages-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'packages' %}">PACKAGES</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'amenities' %}">AMENITIES</a></li>
+                    <li><a href="{% url 'contact' %}">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <a href="#booking" class="book-now-btn">BOOK NOW</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="packages-hero">
+        <h1>☀ KAELA Resort Packages</h1>
+        <p>Discover our exclusive overnight, daycation, and function packages</p>
+    </div>
+
+    <!-- Packages Content -->
+    <div class="packages-container">
+        <!-- Overnight Packages -->
+        <div class="package-category">
+            <h2 class="category-title">🌙 Overnight Packages</h2>
+            
+            <div class="packages-grid">
+                <!-- Weekend & Holiday -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Weekend & Holiday</h3>
+                        <span class="package-badge">Premium</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱20,000</p>
+                        <p class="price-label">Per booking</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Maximum bed capacity of 30 persons</li>
+                            <li>Package includes access to the <strong>whole villa</strong></li>
+                            <li>Perfect for family gatherings</li>
+                            <li>Premium amenities included</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Weekday 5-8 pax -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Weekday (5-8 pax)</h3>
+                        <span class="package-badge">Economy</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱10,000</p>
+                        <p class="price-label">Per booking</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Capacity: 5 to 8 guests</li>
+                            <li>Access to <strong>first-floor bedroom</strong></li>
+                            <li>Shared common areas</li>
+                            <li>Great value for small groups</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Weekday 9-12 pax -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Weekday (9-12 pax)</h3>
+                        <span class="package-badge">Standard</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱12,000</p>
+                        <p class="price-label">Per booking</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Capacity: 9 to 12 guests</li>
+                            <li>Access to <strong>first-floor bedroom</strong></li>
+                            <li>Spacious accommodation</li>
+                            <li>Ideal for medium groups</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Weekday 13-18 pax -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Weekday (13-18 pax)</h3>
+                        <span class="package-badge">Comfort</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱14,000</p>
+                        <p class="price-label">Per booking</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Capacity: 13 to 18 guests</li>
+                            <li>Access to first-floor bedroom & <strong>upstairs barkada room</strong></li>
+                            <li>More space for larger groups</li>
+                            <li>Perfect for team outings</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Weekday 19-22 pax -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Weekday (19-22 pax)</h3>
+                        <span class="package-badge">Premium</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱16,000</p>
+                        <p class="price-label">Per booking</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Capacity: 19 to 22 guests</li>
+                            <li>Access to the <strong>whole villa</strong></li>
+                            <li>All areas included</li>
+                            <li>Maximum comfort experience</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Weekday 23-30 pax -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Weekday (23-30 pax)</h3>
+                        <span class="package-badge">Ultimate</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱18,000</p>
+                        <p class="price-label">Per booking</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Capacity: 23 to 30 guests</li>
+                            <li>Access to the <strong>whole villa</strong></li>
+                            <li>All amenities included</li>
+                            <li>Full villa experience</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daycation Packages -->
+        <div class="package-category">
+            <h2 class="category-title">☀ Daycation Packages</h2>
+            
+            <div class="highlight-section">
+                <h4>📋 Daycation Package Details</h4>
+                <p>✓ <strong>Weekday bookings only</strong></p>
+                <p>✓ Can accommodate up to <strong>30 guests</strong> (additional charges apply for extra guests)</p>
+                <p>✓ Each package includes a <strong>6-hour duration</strong>, with additional fees for extensions beyond the allotted time</p>
+            </div>
+
+            <div class="packages-grid">
+                <!-- Daytime Access -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Daytime Access</h3>
+                        <span class="package-badge">Daycation</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱10,000</p>
+                        <p class="price-label">6 hours</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Time: <strong>2:00 PM to 8:00 PM</strong></li>
+                            <li>Access to first floor & first-floor bedroom</li>
+                            <li>Swimming pool access included</li>
+                            <li>Perfect afternoon escape</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Evening Access -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Evening Access</h3>
+                        <span class="package-badge">Daycation</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱10,000</p>
+                        <p class="price-label">6 hours</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Time: <strong>6:00 PM to 12:00 MN</strong></li>
+                            <li>Access to first floor & first-floor bedroom</li>
+                            <li>Swimming pool access included</li>
+                            <li>Perfect for evening gatherings</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Function Packages -->
+        <div class="package-category">
+            <h2 class="category-title">🎉 Function Packages</h2>
+
+            <div class="packages-grid">
+                <!-- Event Space Rental -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Event Space Rental</h3>
+                        <span class="package-badge">Events</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱18,000</p>
+                        <p class="price-label">4 hours</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li>Suitable for events up to <strong>60 guests</strong></li>
+                            <li>Rental duration: <strong>4 hours</strong></li>
+                            <li>3-hour ingress period prior (not centralized)</li>
+                            <li>Overtime subject to additional fees</li>
+                            <li>Access to first floor, bedroom & swimming pool</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Pictorial Rental -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Pictorial Rental</h3>
+                        <span class="package-badge">Photo Shoot</span>
+                    </div>
+                    <div class="package-price">
+                        <p class="price-amount">₱8,000</p>
+                        <p class="price-label">4 hours</p>
+                    </div>
+                    <div class="package-details">
+                        <ul>
+                            <li><strong>Weekday bookings only</strong></li>
+                            <li>Duration: <strong>4 hours</strong></li>
+                            <li>Allows use of entire villa space</li>
+                            <li>Perfect for photoshoots & video production</li>
+                            <li>Extensions subject to additional charges</li>
+                        </ul>
+                    </div>
+                    <div class="package-footer">
+                        <a href="{% url 'user_login' %}">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="highlight-section" style="text-align: center; background: linear-gradient(135deg, var(--kaela-brown) 0%, var(--kaela-terracotta) 100%); color: var(--text-white); margin-top: 4rem;">
+            <h3 style="color: var(--text-white); margin-top: 0;">Ready to Book Your Experience?</h3>
+            <p style="color: rgba(255,255,255,0.9); font-size: 1rem;">Contact us or book directly through our reservation system for the best rates and availability.</p>
+            <a href="{% url 'contact' %}" style="display: inline-block; background: var(--kaela-gold); color: var(--text-white); padding: 1rem 2rem; text-decoration: none; border-radius: 6px; font-weight: 600; text-transform: uppercase; margin-top: 1rem;">Get in Touch</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--kaela-brown); color: var(--text-white); padding: 3rem; text-align: center; margin-top: 4rem;">
+        <h3>☀ KAELA Events Place and Private Resort</h3>
+        <p>📞 0917 858 0963 | 📧 kaelaresor.ph@gmail.com</p>
+        <p style="font-size: 0.9rem; opacity: 0.8;">&copy; 2025 KAELA Resort. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleAdminMenu(event) {
+            event.preventDefault();
+            const adminMenu = document.getElementById('adminMenu');
+            if (adminMenu) {
+                adminMenu.classList.toggle('active');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const adminMenu = document.getElementById('adminMenu');
+            const toggleBtn = event.target.closest('.admin-toggle-btn');
+            if (adminMenu && !toggleBtn && !adminMenu.contains(event.target)) {
+                adminMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

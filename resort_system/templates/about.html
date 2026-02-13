@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - KAELA Events Place and Private Resort</title>
+    <link rel="stylesheet" href="{% static 'blossom.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'packages' %}">PACKAGES</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'amenities' %}">AMENITIES</a></li>
+                    <li><a href="{% url 'contact' %}">CONTACT</a></li>
+                </ul>
+            </nav>
+            <a href="{% url 'index' %}#booking" class="book-now-btn">BOOK NOW</a>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section style="background: var(--kaela-brown); padding: 3rem 2rem; text-align: center;">
+        <h1 style="color: white; font-size: 2.5rem; margin-bottom: 0.5rem;">About KAELA</h1>
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Crafting unforgettable memories since 1995</p>
+    </section>
+
+    <!-- About Content -->
+    <section class="section" style="padding: 3rem 2rem;">
+        <div class="container">
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <!-- Our Story -->
+                <div style="margin-bottom: 3rem; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <h2 style="color: var(--dark-brown); margin-top: 0;">Our Story</h2>
+                    <p style="color: #666; line-height: 1.8; margin-bottom: 1rem;">
+                        Kaela's Resort was founded with a simple vision: to provide an exceptional beachfront experience that combines luxury, comfort, and personalized service. For nearly three decades, we have been the preferred choice for travelers seeking an unforgettable tropical getaway.
+                    </p>
+                    <p style="color: #666; line-height: 1.8;">
+                        Located on pristine white sand beaches with stunning ocean views, our resort has evolved from a small boutique property to one of the region's most acclaimed destinations. Yet, we've never lost sight of what makes us special—our commitment to excellence and genuine hospitality.
+                    </p>
+                </div>
+
+                <!-- Our Mission -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+                    <div style="background: #f9f9f9; padding: 2rem; border-radius: 8px; border-left: 5px solid var(--primary-orange);">
+                        <h3 style="color: var(--dark-brown); margin-top: 0;">🎯 Our Mission</h3>
+                        <p style="color: #666;">
+                            To deliver world-class hospitality by creating memorable experiences that exceed expectations. We are dedicated to sustainable tourism and community engagement.
+                        </p>
+                    </div>
+                    <div style="background: #f9f9f9; padding: 2rem; border-radius: 8px; border-left: 5px solid var(--primary-brown);">
+                        <h3 style="color: var(--dark-brown); margin-top: 0;">✨ Our Vision</h3>
+                        <p style="color: #666;">
+                            To be the most beloved resort destination, known for exceptional service, sustainable practices, and creating transformative vacation experiences for every guest.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                    <div style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); color: white; padding: 2rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold;">30+</div>
+                        <div style="margin-top: 0.5rem;">Years of Excellence</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); color: white; padding: 2rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold;">100K+</div>
+                        <div style="margin-top: 0.5rem;">Happy Guests</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); color: white; padding: 2rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold;">50+</div>
+                        <div style="margin-top: 0.5rem;">Staff Members</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); color: white; padding: 2rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: bold;">5⭐</div>
+                        <div style="margin-top: 0.5rem;">Average Rating</div>
+                    </div>
+                </div>
+
+                <!-- Core Values -->
+                <h2 style="color: var(--dark-brown); text-align: center; margin-bottom: 2rem;">Our Core Values</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">💎</div>
+                        <h4 style="color: var(--dark-brown); margin: 0.5rem 0;">Quality</h4>
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">Excellence in every detail, from service to amenities.</p>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">❤️</div>
+                        <h4 style="color: var(--dark-brown); margin: 0.5rem 0;">Hospitality</h4>
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">Genuine warmth and personalized care for every guest.</p>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌍</div>
+                        <h4 style="color: var(--dark-brown); margin: 0.5rem 0;">Sustainability</h4>
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">Environmental responsibility and community support.</p>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+                        <h4 style="color: var(--dark-brown); margin: 0.5rem 0;">Integrity</h4>
+                        <p style="color: #666; font-size: 0.95rem; margin: 0;">Honest dealings and transparent business practices.</p>
+                    </div>
+                </div>
+
+                <!-- Awards -->
+                <div style="background: #f9f9f9; padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h3 style="color: var(--dark-brown); margin-top: 0;">Awards & Recognition</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🏆</div>
+                            <div style="font-weight: 600; color: var(--dark-brown);">Best Beach Resort</div>
+                            <div style="color: #666; font-size: 0.9rem;">2023 Tourism Award</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">⭐</div>
+                            <div style="font-weight: 600; color: var(--dark-brown);">5-Star Rating</div>
+                            <div style="color: #666; font-size: 0.9rem;">Guest Review Average</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🌱</div>
+                            <div style="font-weight: 600; color: var(--dark-brown);">Green Certification</div>
+                            <div style="color: #666; font-size: 0.9rem;">Eco-Friendly Resort</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); padding: 2rem; text-align: center; margin-top: 2rem;">
+        <h2 style="color: white; margin: 0 0 1rem 0;">Join Us for an Unforgettable Experience</h2>
+        <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem;">Book your stay at Kaela's Resort today!</p>
+        <a href="{% url 'index' %}" class="btn btn-primary" style="background: white; color: var(--primary-brown); padding: 0.75rem 2rem; border-radius: 4px; text-decoration: none; font-weight: 600; display: inline-block;">
+            Book Now
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--dark-brown); color: white; padding: 2rem; text-align: center; margin-top: 2rem;">
+        <p>&copy; 2025 Kaela Private Resort Maloles. All rights reserved.</p>
+        <p style="margin: 0.5rem 0;">📞 0917 858 0963 | 📧 kaelaresor.ph@gmail.com</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><a href="{% url 'index' %}" style="color: var(--accent-gold); text-decoration: none;">← Back to Home</a></p>
+    </footer>
+</body>
+</html>

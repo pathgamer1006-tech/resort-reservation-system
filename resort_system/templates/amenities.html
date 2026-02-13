@@ -1,0 +1,674 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amenities - KAELA Events Place and Private Resort</title>
+    <link rel="stylesheet" href="{% static 'blossom.css' %}">
+    <style>
+        .amenities-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .package-amenities {
+            margin-bottom: 4rem;
+        }
+
+        .package-amenities h3 {
+            color: var(--kaela-brown);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--kaela-cream);
+        }
+
+        .amenity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .amenity-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--kaela-terracotta);
+        }
+
+        .amenity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .amenity-header {
+            background: linear-gradient(135deg, var(--kaela-brown) 0%, var(--kaela-terracotta) 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .amenity-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .amenity-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .amenity-content {
+            padding: 1.5rem;
+        }
+
+        .amenity-description {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .package-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .package-tag {
+            background: var(--kaela-cream);
+            color: var(--kaela-brown);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .package-tag.overnight {
+            background: rgba(168, 92, 60, 0.15);
+            color: var(--kaela-brown);
+            border: 1px solid var(--kaela-brown);
+        }
+
+        .package-tag.daycation {
+            background: rgba(212, 165, 116, 0.2);
+            color: #D4A574;
+            border: 1px solid #D4A574;
+        }
+
+        .package-tag.function {
+            background: rgba(196, 125, 92, 0.15);
+            color: var(--kaela-terracotta);
+            border: 1px solid var(--kaela-terracotta);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--kaela-brown) 0%, var(--kaela-terracotta) 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .info-box {
+            background: var(--kaela-cream);
+            border-left: 5px solid var(--kaela-gold);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .info-box h4 {
+            color: var(--kaela-brown);
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 1.8rem;
+            }
+
+            .amenity-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'packages' %}">PACKAGES</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'amenities' %}">AMENITIES</a></li>
+                    <li><a href="{% url 'contact' %}">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <a href="{% url 'index' %}#booking" class="book-now-btn">BOOK NOW</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>☀ KAELA Resort Amenities</h1>
+        <p>Discover what's included in each package</p>
+    </div>
+
+    <!-- Info Box -->
+    <div class="amenities-section">
+        <div class="info-box">
+            <h4>📋 Amenity Guide</h4>
+            <p>Below you'll find all amenities organized by package type. Each amenity shows which packages include access to it.</p>
+        </div>
+
+        <!-- Overnight Packages Amenities -->
+        <div class="package-amenities">
+            <h3>🌙 Overnight Packages - Included Amenities</h3>
+            <div class="amenity-grid">
+                <!-- Swimming Pool -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🏊</div>
+                        <h4 class="amenity-name">Swimming Pool</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Access to our private swimming pool facility with lounging areas and refreshment amenities.</p>
+                        <div class="package-tags">
+                            <span class="package-tag overnight">✓ All Overnight</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bedrooms -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🛏️</div>
+                        <h4 class="amenity-name">Private Bedrooms</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Comfortable bedrooms with premium bedding. Access levels vary by package size.</p>
+                        <div class="package-tags">
+                            <span class="package-tag overnight">✓ All Overnight</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Air Conditioning -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">❄️</div>
+                        <h4 class="amenity-name">Air Conditioning</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Full air conditioning in all accessible areas for maximum comfort during your stay.</p>
+                        <div class="package-tags">
+                            <span class="package-tag overnight">✓ All Overnight</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WiFi -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🌐</div>
+                        <h4 class="amenity-name">WiFi Internet</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">High-speed WiFi throughout the resort for connectivity and streaming.</p>
+                        <div class="package-tags">
+                            <span class="package-tag overnight">✓ All Overnight</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bathroom Amenities -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🚿</div>
+                        <h4 class="amenity-name">Luxury Bathrooms</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Premium bathroom facilities with hot showers and quality toiletries.</p>
+                        <div class="package-tags">
+                            <span class="package-tag overnight">✓ All Overnight</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Common Areas -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🛋️</div>
+                        <h4 class="amenity-name">Common Lounge Areas</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Comfortable common spaces for gathering and relaxation with entertainment options.</p>
+                        <div class="package-tags">
+                            <span class="package-tag overnight">✓ All Overnight</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kitchen Facilities -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🍳</div>
+                        <h4 class="amenity-name">Kitchen Access</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Full kitchen facilities available for whole villa bookings (23-30 pax packages).</p>
+                        <div class="package-tags">
+                            <span class="package-tag overnight">✓ Premium Packages</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upstairs Barkada Room -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🎉</div>
+                        <h4 class="amenity-name">Upstairs Barkada Room</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Additional gathering space available for medium and larger group bookings.</p>
+                        <div class="package-tags">
+                            <span class="package-tag overnight">✓ 13-30 pax</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daycation Packages Amenities -->
+        <div class="package-amenities">
+            <h3>☀️ Daycation Packages - Included Amenities</h3>
+            <div class="amenity-grid">
+                <!-- Pool Access Daycation -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🏊</div>
+                        <h4 class="amenity-name">Swimming Pool</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Full access to the swimming pool during your 6-hour daycation period.</p>
+                        <div class="package-tags">
+                            <span class="package-tag daycation">✓ Both Daycation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- First Floor Access -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🏠</div>
+                        <h4 class="amenity-name">First Floor Access</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Access to first floor facilities including living areas and dining spaces.</p>
+                        <div class="package-tags">
+                            <span class="package-tag daycation">✓ Daytime & Evening</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daytime Bedroom -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🛏️</div>
+                        <h4 class="amenity-name">First Floor Bedroom</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Access to first-floor bedroom facilities during daycation hours.</p>
+                        <div class="package-tags">
+                            <span class="package-tag daycation">✓ Both Daycation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Air Con & Comfort -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">❄️</div>
+                        <h4 class="amenity-name">Climate Control</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Air-conditioned common areas for your comfort during daycation hours.</p>
+                        <div class="package-tags">
+                            <span class="package-tag daycation">✓ Both Daycation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- WiFi Daycation -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">📶</div>
+                        <h4 class="amenity-name">WiFi Connectivity</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">High-speed WiFi access during your daycation stay.</p>
+                        <div class="package-tags">
+                            <span class="package-tag daycation">✓ Both Daycation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bathroom Facilities Daycation -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🚿</div>
+                        <h4 class="amenity-name">Bathroom Facilities</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Premium bathroom facilities with showers and amenities.</p>
+                        <div class="package-tags">
+                            <span class="package-tag daycation">✓ Both Daycation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Function Packages Amenities -->
+        <div class="package-amenities">
+            <h3>🎉 Function Packages - Included Amenities</h3>
+            <div class="amenity-grid">
+                <!-- Event Space -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🎪</div>
+                        <h4 class="amenity-name">Event Space</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Professional event space suitable for up to 60 guests with catering facilities.</p>
+                        <div class="package-tags">
+                            <span class="package-tag function">✓ Event Rental</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Function Pool Access -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🏊</div>
+                        <h4 class="amenity-name">Pool Access</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Swimming pool access for event guests during function rental.</p>
+                        <div class="package-tags">
+                            <span class="package-tag function">✓ Event Rental</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Function Bedroom Access -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🛏️</div>
+                        <h4 class="amenity-name">Bedroom Facilities</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Access to first-floor bedroom for events requiring overnight accommodations.</p>
+                        <div class="package-tags">
+                            <span class="package-tag function">✓ Event Rental</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pictorial Venue -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">📸</div>
+                        <h4 class="amenity-name">Pictorial Venue</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Entire villa available as backdrop for photoshoots and video production.</p>
+                        <div class="package-tags">
+                            <span class="package-tag function">✓ Pictorial Rental</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lighting Setup -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">💡</div>
+                        <h4 class="amenity-name">Lighting & Setup</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Professional lighting and staging areas available for photo and video production.</p>
+                        <div class="package-tags">
+                            <span class="package-tag function">✓ Pictorial Rental</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Parking -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🅿️</div>
+                        <h4 class="amenity-name">Ample Parking</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Spacious parking area for event guests and equipment vehicles.</p>
+                        <div class="package-tags">
+                            <span class="package-tag function">✓ Both Function</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Climate Control Function -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">❄️</div>
+                        <h4 class="amenity-name">Climate Control</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Full air conditioning and ventilation throughout event spaces.</p>
+                        <div class="package-tags">
+                            <span class="package-tag function">✓ Both Function</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Restroom Facilities -->
+                <div class="amenity-card">
+                    <div class="amenity-header">
+                        <div class="amenity-icon">🚻</div>
+                        <h4 class="amenity-name">Restroom Facilities</h4>
+                    </div>
+                    <div class="amenity-content">
+                        <p class="amenity-description">Premium restroom facilities for event guests.</p>
+                        <div class="package-tags">
+                            <span class="package-tag function">✓ Both Function</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--kaela-brown); color: var(--text-white); padding: 3rem; text-align: center; margin-top: 4rem;">
+        <h3>☀ KAELA Events Place and Private Resort</h3>
+        <p>📞 0917 858 0963 | 📧 kaelaresor.ph@gmail.com</p>
+        <p style="font-size: 0.9rem; opacity: 0.8;">&copy; 2025 KAELA Resort. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'packages' %}">PACKAGES</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'amenities' %}">AMENITIES</a></li>
+                    <li><a href="{% url 'contact' %}">CONTACT</a></li>
+                </ul>
+            </nav>
+            <a href="{% url 'index' %}#booking" class="book-now-btn">BOOK NOW</a>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section style="background: var(--kaela-brown); padding: 3rem 2rem; text-align: center;">
+        <h1 style="color: white; font-size: 2.5rem; margin-bottom: 0.5rem;">Resort Amenities</h1>
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">World-class facilities for your comfort</p>
+    </section>
+
+    <!-- Amenities Section -->
+    <section class="section" style="padding: 3rem 2rem;">
+        <div class="container">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <p style="color: #666; font-size: 1.1rem;">Enjoy {{ total_amenities }} premium amenities designed for your convenience and relaxation.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                    {% for amenity in amenities %}
+                    <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; transition: transform 0.3s; hover:transform scale(1.05);">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">
+                            {% if amenity.name == 'WiFi' %}🌐
+                            {% elif amenity.name == 'Pool' %}🏊
+                            {% elif amenity.name == 'Gym' %}💪
+                            {% elif amenity.name == 'Spa' %}🧖
+                            {% elif amenity.name == 'Restaurant' %}🍽️
+                            {% elif amenity.name == 'Parking' %}🅿️
+                            {% elif amenity.name == 'AC' %}❄️
+                            {% elif amenity.name == 'Balcony' %}🏠
+                            {% else %}✨
+                            {% endif %}
+                        </div>
+                        <h3 style="color: var(--dark-brown); margin: 0 0 0.5rem 0;">{{ amenity.name }}</h3>
+                        <p style="color: #666; margin: 0; font-size: 0.95rem;">{{ amenity.description }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if not amenities %}
+                <div style="text-align: center; padding: 2rem; background: #f5f5f5; border-radius: 8px;">
+                    <p style="color: #999; font-size: 1.1rem;">No amenities listed at the moment.</p>
+                </div>
+                {% endif %}
+
+                <!-- Features Grid -->
+                <h2 style="color: var(--dark-brown); margin: 3rem 0 1.5rem 0; text-align: center;">What Makes Us Special</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                    <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; border-left: 5px solid var(--primary-orange);">
+                        <h3 style="color: var(--dark-brown); margin-top: 0;">🎯 World-Class Service</h3>
+                        <p style="color: #666;">Our dedicated staff ensures exceptional service around the clock, committed to making your stay unforgettable.</p>
+                    </div>
+
+                    <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; border-left: 5px solid var(--primary-brown);">
+                        <h3 style="color: var(--dark-brown); margin-top: 0;">🌟 Luxury Experience</h3>
+                        <p style="color: #666;">Premium facilities and attention to detail create an experience beyond expectations for every guest.</p>
+                    </div>
+
+                    <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 8px; border-left: 5px solid var(--accent-gold);">
+                        <h3 style="color: var(--dark-brown); margin-top: 0;">💎 Exclusive Benefits</h3>
+                        <p style="color: #666;">Members enjoy exclusive perks, early access to special rates, and personalized concierge services.</p>
+                    </div>
+                </div>
+
+                <!-- Amenity Categories -->
+                <div style="background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 2rem;">
+                    <h3 style="color: var(--dark-brown); margin-top: 0;">Complete Amenity Categories</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                        <div>
+                            <h4 style="color: var(--primary-orange);">🏊 Leisure</h4>
+                            <ul style="color: #666; margin: 0; padding-left: 1.5rem;">
+                                <li>Swimming Pool</li>
+                                <li>Beach Access</li>
+                                <li>Water Sports</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--primary-orange);">💪 Fitness</h4>
+                            <ul style="color: #666; margin: 0; padding-left: 1.5rem;">
+                                <li>Gym & Equipment</li>
+                                <li>Yoga Classes</li>
+                                <li>Personal Training</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--primary-orange);">🧖 Wellness</h4>
+                            <ul style="color: #666; margin: 0; padding-left: 1.5rem;">
+                                <li>Spa Services</li>
+                                <li>Massage Therapy</li>
+                                <li>Sauna & Steam</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--primary-orange);">🍽️ Dining</h4>
+                            <ul style="color: #666; margin: 0; padding-left: 1.5rem;">
+                                <li>Fine Dining</li>
+                                <li>Casual Café</li>
+                                <li>Room Service</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); padding: 2rem; text-align: center; margin-top: 2rem;">
+        <h2 style="color: white; margin: 0 0 1rem 0;">Experience Luxury Today</h2>
+        <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem;">Book your stay and enjoy all our premium amenities!</p>
+        <a href="{% url 'index' %}" class="btn btn-primary" style="background: white; color: var(--primary-brown); padding: 0.75rem 2rem; border-radius: 4px; text-decoration: none; font-weight: 600; display: inline-block;">
+            Book Now
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--dark-brown); color: white; padding: 2rem; text-align: center; margin-top: 2rem;">
+        <p>&copy; 2025 Kaela's Resort. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><a href="{% url 'index' %}" style="color: var(--accent-gold); text-decoration: none;">← Back to Home</a></p>
+    </footer>
+
+    <script>
+        function toggleAdminMenu(event) {
+            event.preventDefault();
+            const adminMenu = document.getElementById('adminMenu');
+            if (adminMenu) {
+                adminMenu.classList.toggle('active');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const adminMenu = document.getElementById('adminMenu');
+            const toggleBtn = event.target.closest('.admin-toggle-btn');
+            if (adminMenu && !toggleBtn && !adminMenu.contains(event.target)) {
+                adminMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reservations - KAELA Resort</title>
+    <link rel="stylesheet" href="{% static 'blossom.css' %}">
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, #E8751A 0%, #FF9A3D 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #E8751A;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .reservations-section h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .reservation-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .reservation-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .reservation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .reservation-id {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background: #FFF3CD;
+            color: #856404;
+        }
+
+        .status-confirmed {
+            background: #D4EDDA;
+            color: #155724;
+        }
+
+        .status-checked_in {
+            background: #D1ECF1;
+            color: #0c5460;
+        }
+
+        .status-checked_out {
+            background: #E2E3E5;
+            color: #383D41;
+        }
+
+        .reservation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .reservation-info {
+            padding: 0.5rem 0;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: #999;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: #E8751A;
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #FF7620;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #E8751A;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #FF7620;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 0 1rem;
+            }
+
+            .reservation-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .welcome-section h1 {
+                font-size: 1.5rem;
+            }
+
+            .stat-card .number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'packages' %}">PACKAGES</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'amenities' %}">AMENITIES</a></li>
+                    <li><a href="{% url 'contact' %}">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <div class="header-auth">
+                    {% if user.is_authenticated %}
+                        <span class="user-greeting">👤 {{ user.first_name|default:user.username }}</span>
+                        <a href="{% url 'logout' %}" class="auth-btn logout-btn">Logout</a>
+                    {% else %}
+                        <a href="{% url 'user_login' %}" class="auth-btn guest-btn">Guest Login</a>
+                    {% endif %}
+                </div>
+                <a href="#booking" class="book-now-btn">BOOK NOW</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <a href="{% url 'index' %}" class="back-link">← Back to Home</a>
+
+        <div class="welcome-section">
+            <h1>🔔 My Reservations</h1>
+            <p>View and manage all your KAELA resort bookings</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">{{ reservations|length }}</div>
+                <div class="label">Total Bookings</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">{{ pending_count }}</div>
+                <div class="label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">{{ confirmed_count }}</div>
+                <div class="label">Confirmed</div>
+            </div>
+        </div>
+
+        <!-- Reservations List -->
+        <div class="reservations-section">
+            <h2>📋 Your Reservations</h2>
+
+            {% if reservations %}
+                {% for reservation in reservations %}
+                    <div class="reservation-card">
+                        <div class="reservation-header">
+                            <div class="reservation-id">Reservation #{{ reservation.id }}</div>
+                            <span class="status-badge status-{{ reservation.status }}">
+                                {% if reservation.status == 'pending' %}
+                                    ⏳ Pending Approval
+                                {% elif reservation.status == 'confirmed' %}
+                                    ✅ Confirmed
+                                {% elif reservation.status == 'checked_in' %}
+                                    🏠 Checked In
+                                {% elif reservation.status == 'checked_out' %}
+                                    👋 Checked Out
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        <div class="reservation-grid">
+                            <div class="reservation-info">
+                                <div class="info-label">Guest Name</div>
+                                <div class="info-value">{{ reservation.guest.first_name }} {{ reservation.guest.last_name }}</div>
+                            </div>
+                            <div class="reservation-info">
+                                <div class="info-label">Check-in Date</div>
+                                <div class="info-value">{{ reservation.check_in_date|date:"M d, Y" }}</div>
+                            </div>
+                            <div class="reservation-info">
+                                <div class="info-label">Check-out Date</div>
+                                <div class="info-value">{{ reservation.check_out_date|date:"M d, Y" }}</div>
+                            </div>
+                            <div class="reservation-info">
+                                <div class="info-label">Number of Guests</div>
+                                <div class="info-value">{{ reservation.number_of_guests }} {% if reservation.number_of_guests == 1 %}Guest{% else %}Guests{% endif %}</div>
+                            </div>
+                            <div class="reservation-info">
+                                <div class="info-label">Total Nights</div>
+                                <div class="info-value">{{ reservation.total_nights }}</div>
+                            </div>
+                            <div class="reservation-info">
+                                <div class="info-label">Total Price</div>
+                                <div class="info-value">₱{{ reservation.final_price|floatformat:2 }}</div>
+                            </div>
+                            {% if reservation.package_type %}
+                                <div class="reservation-info">
+                                    <div class="info-label">Package Type</div>
+                                    <div class="info-value">{{ reservation.package_type }}</div>
+                                </div>
+                            {% endif %}
+                            <div class="reservation-info">
+                                <div class="info-label">Booked On</div>
+                                <div class="info-value">{{ reservation.created_at|date:"M d, Y H:i" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <h3>No Reservations Yet</h3>
+                    <p>You haven't made any bookings yet. Start planning your perfect getaway!</p>
+                    <a href="{% url 'index' %}#booking" class="btn-primary">Make Your First Booking</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: var(--kaela-brown); color: var(--text-white); padding: 3rem; text-align: center; margin-top: 4rem;">
+        <h3>☀ KAELA Events Place and Private Resort</h3>
+        <p>📞 0917 858 0963 | 📧 kaelaresor.ph@gmail.com</p>
+        <p style="font-size: 0.9rem; opacity: 0.8;">&copy; 2025 KAELA Resort. All rights reserved.</p>
+    </footer>
+</body>
+</html>

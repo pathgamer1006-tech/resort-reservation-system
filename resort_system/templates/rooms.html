@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms - KAELA Events Place and Private Resort</title>
+    <link rel="stylesheet" href="{% static 'blossom.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">☀</div>
+                KAELA
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'rooms' %}">ROOMS</a></li>
+                    <li><a href="{% url 'packages' %}">PACKAGES</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'amenities' %}">AMENITIES</a></li>
+                    <li><a href="{% url 'contact' %}">CONTACT</a></li>
+                </ul>
+            </nav>
+            <a href="{% url 'index' %}#booking" class="book-now-btn">BOOK NOW</a>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <section style="background: var(--kaela-brown); padding: 3rem 2rem; text-align: center;">
+        <h1 style="color: white; font-size: 2.5rem; margin-bottom: 0.5rem;">Our Rooms</h1>
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem;">Choose from our luxurious room selection</p>
+    </section>
+
+    <!-- Room Types Section -->
+    <section class="section" style="padding: 3rem 2rem;">
+        <div class="container">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h2 style="color: var(--dark-brown); margin: 3rem 0 1.5rem 0;">Available Room Types</h2>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    {% for room_type in room_types %}
+                    <div class="room-card" style="background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s;">
+                        <div style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); padding: 1.5rem; color: white;">
+                            <h3 style="margin: 0; font-size: 1.3rem;">{{ room_type.name }}</h3>
+                            <div style="font-size: 1.8rem; font-weight: bold; margin-top: 0.5rem;">₱{{ room_type.base_price }}<span style="font-size: 0.7em;">/night</span></div>
+                        </div>
+                        <div style="padding: 1.5rem;">
+                            <p style="color: #666; margin-bottom: 1rem;">{{ room_type.description }}</p>
+
+                            <div style="background: #f9f9f9; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+                                <div style="font-weight: 600; color: var(--dark-brown); margin-bottom: 0.5rem;">Capacity</div>
+                                <div style="color: #666;">Max {{ room_type.capacity }} Guest{{ room_type.capacity|pluralize }}</div>
+                            </div>
+
+                            <div style="background: #f9f9f9; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem;">
+                                <div style="font-weight: 600; color: var(--dark-brown); margin-bottom: 0.5rem;">Included Amenities</div>
+                                {% if room_type.amenities.all %}
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                                    {% for amenity in room_type.amenities.all %}
+                                    <span style="background: var(--primary-orange); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem;">
+                                        {{ amenity.name }}
+                                    </span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                <div style="color: #999;">No specific amenities listed</div>
+                                {% endif %}
+                            </div>
+
+                            <a href="{% url 'index' %}" class="btn btn-primary" style="display: block; text-align: center; padding: 0.75rem; background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); color: white; text-decoration: none; border-radius: 4px; font-weight: 600;">
+                                Book This Room
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if not room_types %}
+                <div style="text-align: center; padding: 2rem; background: #f5f5f5; border-radius: 8px;">
+                    <p style="color: #999; font-size: 1.1rem;">No room types available at the moment.</p>
+                </div>
+                {% endif %}
+
+                <div style="margin-top: 3rem; padding: 2rem; background: #fff9f0; border-radius: 8px; border-left: 5px solid var(--primary-orange);">
+                    <h3 style="color: var(--dark-brown); margin-top: 0;">Why Book With Us?</h3>
+                    <ul style="margin-left: 1.5rem; color: #666; line-height: 1.8;">
+                        <li>✓ Best price guarantee</li>
+                        <li>✓ Free cancellation up to 24 hours before check-in</li>
+                        <li>✓ 24/7 customer support</li>
+                        <li>✓ Complimentary breakfast for all guests</li>
+                        <li>✓ Loyalty rewards program</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking CTA -->
+    <section style="background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%); padding: 2rem; text-align: center; margin-top: 2rem;">
+        <h2 style="color: white; margin: 0 0 1rem 0;">Ready to Book?</h2>
+        <p style="color: rgba(255,255,255,0.9); margin-bottom: 1.5rem;">Start your amazing vacation today!</p>
+        <a href="{% url 'index' %}" class="btn btn-primary" style="background: white; color: var(--primary-brown); padding: 0.75rem 2rem; border-radius: 4px; text-decoration: none; font-weight: 600; display: inline-block;">
+            Book Now
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: var(--dark-brown); color: white; padding: 2rem; text-align: center; margin-top: 2rem;">
+        <p>&copy; 2025 Kaela's Resort. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;"><a href="{% url 'index' %}" style="color: var(--accent-gold); text-decoration: none;">← Back to Home</a></p>
+    </footer>
+</body>
+</html>

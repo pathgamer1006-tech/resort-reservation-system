@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Reservation - Kaela's Resort Admin</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--primary-orange) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+
+        .warning-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border-top: 5px solid #dc3545;
+        }
+
+        .warning-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .warning-card h2 {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .reservation-info {
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            font-weight: 600;
+            color: var(--dark-brown);
+        }
+
+        .value {
+            color: #666;
+        }
+
+        .warning-text {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            color: #856404;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: center;
+            transition: background 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: var(--dark-brown);
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-header">
+        <h1>⚠️ Delete Reservation</h1>
+        <div>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="warning-card">
+            <div class="warning-icon">⚠️</div>
+            <h2>Delete Reservation?</h2>
+
+            <div class="reservation-info">
+                <div class="info-row">
+                    <span class="label">Reservation ID:</span>
+                    <span class="value">#{{ reservation.id }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Guest:</span>
+                    <span class="value">{{ reservation.guest.name }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Room:</span>
+                    <span class="value">{{ reservation.room.room_number }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Check-in:</span>
+                    <span class="value">{{ reservation.check_in_date|date:"M d, Y" }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Check-out:</span>
+                    <span class="value">{{ reservation.check_out_date|date:"M d, Y" }}</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Total Price:</span>
+                    <span class="value">₱{{ reservation.final_price }}</span>
+                </div>
+            </div>
+
+            <div class="warning-text">
+                ⚠️ This action cannot be undone. The reservation will be permanently deleted from the system.
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="button-group">
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                    <a href="{% url 'sales_list' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

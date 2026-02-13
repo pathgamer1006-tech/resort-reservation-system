@@ -1,0 +1,258 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAELA - Events Place and Private Resort</title>
+    <link rel="stylesheet" href="{% static 'blossom.css' %}">
+</head>
+<body>
+    <!-- ==========================================
+         HEADER & NAVIGATION
+         ========================================== -->
+    <header>
+        <div class="header-container">
+            <nav>
+                <ul>
+                    <li><a href="{% url 'index' %}">HOME</a></li>
+                    <li><a href="{% url 'packages' %}">PACKAGES</a></li>
+                    <li><a href="{% url 'about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'amenities' %}">AMENITIES</a></li>
+                    <li><a href="{% url 'contact' %}">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <div class="header-auth">
+                    {% if user.is_authenticated %}
+                        <span class="user-greeting">👤 {{ user.first_name|default:user.username }}</span>
+                        {% if not user.is_staff %}
+                            <a href="{% url 'guest_dashboard' %}" class="auth-btn guest-btn" title="View your reservations">🔔 Reservations</a>
+                        {% endif %}
+                        {% if user.is_staff %}
+                            <div class="admin-dropdown">
+                                <button class="admin-toggle-btn" onclick="toggleAdminMenu(event)">🔐 Admin</button>
+                                <div class="admin-menu" id="adminMenu">
+                                    <a href="{% url 'admin_dashboard' %}" class="auth-btn admin-access-btn">Admin Dashboard</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <a href="{% url 'logout' %}" class="auth-btn logout-btn">Logout</a>
+                    {% else %}
+                        <a href="{% url 'user_login' %}" class="auth-btn guest-btn">Guest Login</a>
+                    {% endif %}
+                </div>
+                <a href="#booking" class="book-now-btn">BOOK NOW</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+         HERO SECTION
+         ========================================== -->
+    <section class="hero" id="home">
+        <img src="{% static 'KALEA LOGO.png' %}" alt="KAELA Logo" class="hero-logo">
+    </section>
+
+    <!-- ==========================================
+         FEATURE CARDS GRID (BLOSSOM Style)
+         ========================================== -->
+    <div class="features-grid">
+        <!-- Cream Card - Welcome -->
+        <div class="feature-card green">
+            <div>
+                <div class="feature-icon">☀</div>
+                <h2>LUXURY<br>COMFORT<br>SERENITY</h2>
+                <p>Experience the perfect blend of elegance and relaxation</p>
+            </div>
+        </div>
+
+        <!-- Terracotta Card - Events -->
+        <div class="feature-card pink">
+            <div>
+                <div class="feature-icon" style="color: white;">♥</div>
+                <h3 style="color: white;">PERFECT FOR<br>YOUR SPECIAL DAY</h3>
+                <p style="color: rgba(255,255,255,0.9);">Host unforgettable weddings and celebrations at KAELA</p>
+            </div>
+        </div>
+
+        <!-- Beige Card - Amenities -->
+        <div class="feature-card beige">
+            <div>
+                <div class="feature-icon">🏊</div>
+                <h3>WORLD-CLASS<br>AMENITIES</h3>
+                <p>Pool, spa, fitness center, and fine dining await you</p>
+            </div>
+        </div>
+
+        <!-- Gold Card - Discover -->
+        <div class="feature-card yellow">
+            <div>
+                <h2>DISCOVER<br>KAELA</h2>
+                <p>Your perfect escape where memories are made and dreams come true</p>
+            </div>
+            <a href="{% url 'about' %}" class="feature-cta">LEARN MORE →</a>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         BOOKING FORM
+         ========================================== -->
+    <div class="booking-form" id="booking">
+        <h3>BOOK YOUR STAY</h3>
+        <form method="post" action="{% url 'book_reservation' %}">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="guest_name">Your Name</label>
+                    <input type="text" id="guest_name" name="guest_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="guest_email">Email</label>
+                    <input type="email" id="guest_email" name="guest_email" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="guest_phone">Phone</label>
+                    <input type="tel" id="guest_phone" name="guest_phone" placeholder="+63-9XX-XXX-XXXX or 0-9XX-XXX-XXXX">
+                </div>
+                <div class="form-group">
+                    <label for="num_guests">Number of Guests</label>
+                    <select id="num_guests" name="num_guests" required>
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                        <option value="5">5+ Guests</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="check_in">Check-in Date</label>
+                    <input type="date" id="check_in" name="check_in" required>
+                </div>
+                <div class="form-group">
+                    <label for="check_out">Check-out Date</label>
+                    <input type="date" id="check_out" name="check_out" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="package_type">Package Type</label>
+                    <select id="package_type" name="package_type" required>
+                        <option value="">-- Select Package --</option>
+                        <optgroup label="🌙 Overnight Packages">
+                            <option value="weekend_holiday">Weekend & Holiday - ₱20,000</option>
+                            <option value="weekday_5_8">Weekday (5-8 pax) - ₱10,000</option>
+                            <option value="weekday_9_12">Weekday (9-12 pax) - ₱12,000</option>
+                            <option value="weekday_13_18">Weekday (13-18 pax) - ₱14,000</option>
+                            <option value="weekday_19_22">Weekday (19-22 pax) - ₱16,000</option>
+                            <option value="weekday_23_30">Weekday (23-30 pax) - ₱18,000</option>
+                        </optgroup>
+                        <optgroup label="☀️ Daycation Packages">
+                            <option value="daytime_access">Daytime Access (2:00 PM - 8:00 PM) - ₱10,000</option>
+                            <option value="evening_access">Evening Access (6:00 PM - 12:00 MN) - ₱10,000</option>
+                        </optgroup>
+                        <optgroup label="🎉 Function Packages">
+                            <option value="event_rental">Event Space Rental (4 hours) - ₱18,000</option>
+                            <option value="pictorial_rental">Pictorial Rental (4 hours) - ₱8,000</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                BOOK NOW
+            </button>
+        </form>
+    </div>
+
+    <!-- ==========================================
+         TESTIMONIALS SECTION
+         ========================================== -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: var(--text-white);">GUEST TESTIMONIALS</h2>
+            </div>
+
+            <div class="cards-grid">
+                <div class="testimonial-card">
+                    <p>"Paradise Resort exceeded all my expectations. The staff was incredibly friendly and the rooms were immaculate. Definitely coming back!"</p>
+                    <div class="testimonial-author">- Sarah Johnson, USA</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p>"Best vacation ever! The beach is pristine, the amenities are world-class, and the price is unbeatable. Highly recommended!"</p>
+                    <div class="testimonial-author">- Michael Chen, Canada</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p>"Wonderful stay! The team took care of every detail. The spa services were fantastic and the food at the restaurant was delicious."</p>
+                    <div class="testimonial-author">- Emma Rodriguez, Spain</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         FOOTER
+         ========================================== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>KAELA Resort</h4>
+                <p>Events Place and Private Resort - Your destination for luxury and unforgettable moments.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="{% url 'packages' %}">Packages</a></li>
+                    <li><a href="{% url 'amenities' %}">Amenities</a></li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                    <li><a href="{% url 'login' %}">Admin Login</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <ul>
+                    <li>📞 +017 846 0713</li>
+                    <li>📧 info@kaelaresort.com</li>
+                    <li>📍 2314 A modern st. pond, 3, malolos, Malolos</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 KAELA Events Place and Private Resort. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAdminMenu(event) {
+            event.preventDefault();
+            const adminMenu = document.getElementById('adminMenu');
+            if (adminMenu) {
+                adminMenu.classList.toggle('active');
+            }
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const adminMenu = document.getElementById('adminMenu');
+            const toggleBtn = event.target.closest('.admin-toggle-btn');
+            if (adminMenu && !toggleBtn && !adminMenu.contains(event.target)) {
+                adminMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
