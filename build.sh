@@ -13,6 +13,9 @@ python manage.py migrate
 echo "Loading sample data..."
 python manage.py load_sample_data || true
 
+echo "Creating admin account..."
+python manage.py create_admin || true
+
 echo "Build completed successfully!"
 
 
