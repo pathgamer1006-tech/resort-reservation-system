@@ -11,7 +11,8 @@ echo "Running migrations..."
 python manage.py migrate
 
 echo "Loading sample data..."
-python manage.py load_sample_data
+python manage.py load_sample_data || true
 
 echo "Build completed successfully!"
+
 
