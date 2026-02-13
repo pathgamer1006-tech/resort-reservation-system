@@ -8,7 +8,6 @@ from django.conf.urls.static import static
 from django.urls import path, include
 from resort_system.core.views import (
     index, 
-    login_view, 
     logout_view, 
     user_signup,
     user_login,
@@ -44,9 +43,6 @@ urlpatterns = [
     path('user-signup/', user_signup, name='user_signup'),
     path('logout/', logout_view, name='logout'),
     path('guest-dashboard/', guest_dashboard, name='guest_dashboard'),
-    
-    # Admin authentication
-    path('admin-login/', login_view, name='login'),
     path('book/', book_reservation, name='book_reservation'),
     
     # Admin pages

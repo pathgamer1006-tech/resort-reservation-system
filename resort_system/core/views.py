@@ -115,9 +115,12 @@ def user_signup(request):
 
 def user_login(request):
     """
-    User login page (separate from admin login).
+    Unified login page for both guests and admin users.
     """
     if request.user.is_authenticated:
+        # If already logged in as admin, redirect to dashboard
+        if request.user.is_staff:
+            return redirect('admin_dashboard')
         return redirect('index')
     
     if request.method == 'POST':
@@ -127,7 +130,11 @@ def user_login(request):
         
         if user is not None:
             login(request, user)
-            return redirect('index')
+            # Redirect to admin dashboard if staff, otherwise to home
+            if user.is_staff:
+                return redirect('admin_dashboard')
+            else:
+                return redirect('index')
         else:
             return render(request, 'user_login.html', {'error': 'Invalid credentials'})
     
